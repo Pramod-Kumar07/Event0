@@ -2,6 +2,7 @@
 
 import Input from "@/Components/FormComponents/Input";
 import Button from "@/Components/UI/Button";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 
 type SignInFormValues = {
@@ -26,10 +27,16 @@ export default function Page() {
   };
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-md flex-col justify-center px-6 py-16">
+    <main className="mx-auto flex min-h-screen w-full max-w-md flex-col justify-center">
+      <p className="mx-auto">
+        Do not have an account{" "}
+        <Link href={"/register"} className="text-blue-600 hover:underline">
+          Sign up
+        </Link>
+      </p>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="mt-8 space-y-5 rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm"
+        className="mt-4 space-y-5 rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm"
       >
         <Input
           type="email"
@@ -56,7 +63,7 @@ export default function Page() {
         />
 
         <Button type="submit" fullWidth>
-          Submit
+          Sign in
         </Button>
       </form>
     </main>
