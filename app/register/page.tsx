@@ -2,25 +2,16 @@
 
 import Input from "@/Components/FormComponents/Input";
 import Button from "@/Components/UI/Button";
+import type { SignUpSchema } from "@/lib/models/user";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-
-type SignInFormValues = {
-  firstname: string;
-  middlename: string;
-  lastname: string;
-  contactnumber: string;
-  dob: string;
-  email: string;
-  password: string;
-};
 
 export default function Page() {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitted },
-  } = useForm<SignInFormValues>({
+  } = useForm<SignUpSchema>({
     defaultValues: {
       firstname: "",
       lastname: "",
@@ -31,14 +22,14 @@ export default function Page() {
     },
   });
 
-  const onSubmit = (values: SignInFormValues) => {
+  const onSubmit = (values: SignUpSchema) => {
     console.log("Sign in values", values, isSubmitted);
   };
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-md flex-col justify-center">
       <p className="mx-auto">
-        Already have an account{" "}
+        Already have an account?{" "}
         <Link href={"/signin"} className="text-blue-600 hover:underline">
           Sign in
         </Link>
