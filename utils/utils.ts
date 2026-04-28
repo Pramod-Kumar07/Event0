@@ -1,3 +1,4 @@
+import bcrypt from "bcryptjs";
 import { type ForwardedRef } from "react";
 
 //function to merge classes
@@ -23,4 +24,11 @@ export function setRef<T>(ref: ForwardedRef<T> | undefined, value: T | null) {
   if (ref) {
     ref.current = value;
   }
+}
+
+//function to hash password
+export async function passwordHash(password: string) {
+  const salt = await bcrypt.genSalt();
+  const hash = await bcrypt.hash(password, salt);
+  return hash;
 }

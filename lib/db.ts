@@ -10,10 +10,12 @@ if (!process.env.MONGODB_URI) {
 
 const cache: MongooseCache = { connection: null, promise: null };
 
-export default async function DBConnect() {
+export default async function dbConnect() {
   if (cache.connection) return cache.connection;
   if (!cache.promise) {
-    cache.promise = mongoose.connect(process.env.MONGODB_URI || "");
+    cache.promise = mongoose.connect(process.env.MONGODB_URI as string, {
+      // serverSelectionTimeoutMS: 5000
+    });
   }
 
   try {

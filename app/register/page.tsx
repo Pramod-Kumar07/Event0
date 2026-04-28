@@ -10,7 +10,7 @@ export default function Page() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitted },
+    formState: { errors },
   } = useForm<SignUpSchema>({
     defaultValues: {
       firstname: "",
@@ -22,8 +22,18 @@ export default function Page() {
     },
   });
 
-  const onSubmit = (values: SignUpSchema) => {
-    console.log("Sign in values", values, isSubmitted);
+  const onSubmit = async (values: SignUpSchema) => {
+    try {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+    } catch (err) {
+      throw err;
+    }
   };
 
   return (
@@ -51,7 +61,6 @@ export default function Page() {
           })}
           error={errors.firstname?.message}
         />
-
 
         <Input
           type="text"
