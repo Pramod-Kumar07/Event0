@@ -32,3 +32,9 @@ export async function passwordHash(password: string) {
   const hash = await bcrypt.hash(password, salt);
   return hash;
 }
+
+//function to check password
+export async function passwordCheck(password: string, hashPassword: string) {
+  const valid = await bcrypt.compare(password, hashPassword);
+  return valid;
+}

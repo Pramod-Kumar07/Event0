@@ -5,12 +5,15 @@ import Button from "@/Components/UI/Button";
 import type { SignInSchema } from "@/lib/models/user";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import {useRouter} from 'next/navigation'
 
 export default function Page() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitted },
+    reset
   } = useForm<SignInSchema>({
     defaultValues: {
       email: "",
@@ -18,8 +21,25 @@ export default function Page() {
     },
   });
 
-  const onSubmit = (values: SignInSchema) => {
-    console.log("Sign in values", values, isSubmitted);
+  const onSubmit = async (values: SignInSchema) => {
+    try {
+      const res = await fetch("/api/auth/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+      const response = await res.json();
+      if (response.status === 200) {
+        reset()
+        router.push("/")
+      } else {
+        console.log("Something went wrong", response);
+      }
+    } catch (err) {
+      throw err;
+    }
   };
 
   return (

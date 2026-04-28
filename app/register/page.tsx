@@ -5,12 +5,15 @@ import Button from "@/Components/UI/Button";
 import type { SignUpSchema } from "@/lib/models/user";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<SignUpSchema>({
     defaultValues: {
       firstname: "",
@@ -31,6 +34,13 @@ export default function Page() {
         },
         body: JSON.stringify(values),
       });
+      const response = await res.json();
+      if (response.status === 200) {
+        reset();
+        router.push("/signin");
+      } else {
+        console.log("Something went wrong", response);
+      }
     } catch (err) {
       throw err;
     }
