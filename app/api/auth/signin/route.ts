@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/db";
-import UserModel from "@/lib/models/user";
+import UserModel, { User } from "@/lib/models/user";
 import { cookies } from "next/headers";
+import { passwordCheck } from "@/utils/utils";
 
 export async function POST(req: NextRequest) {
   try {
@@ -20,19 +21,41 @@ export async function POST(req: NextRequest) {
         { status: 401 },
       );
     }
+    const passCheck = await passwordCheck(password, existingUser?.password);
+    if (!passCheck) {
+      return NextResponse.json(
+        { status: 401, message: "Unauthorized" },
+        { status: 401 },
+      );
+    }
     const cookieStore = await cookies();
-    cookieStore.set("session", "xxxx", {
+    const sessionData = JSON.stringify({
+      token: "xxxx",
+      isAuthenticated: true,
+    });
+    cookieStore.set("session", sessionData, {
       httpOnly: true,
-      secure: true,
+      secure: false,
       sameSite: "strict",
       maxAge: 24 * 60 * 60,
       path: "/",
     });
+    const userData = {
+      _id: existingUser?._id,
+      firstname: existingUser?.firstname,
+      lastname: existingUser?.lastname,
+      contactnumber: existingUser?.contactnumber,
+      dob: existingUser?.dob,
+      email: existingUser?.email,
+      createdAt: existingUser?.createdAt,
+      updatedAt: existingUser?.updatedAt,
+    };
+
     return NextResponse.json(
       {
         status: 200,
         message: "Logged in successfully",
-        data: existingUser,
+        data: userData,
       },
       { status: 200 },
     );
