@@ -51,7 +51,7 @@ export default function Button({
       type={type}
       disabled={disabled || loading}
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-xl font-medium outline-none transition",
+        "inline-flex items-center justify-center gap-2 rounded-xl font-medium outline-none transition cursor-pointer",
         "focus-visible:ring-2",
         "disabled:cursor-not-allowed disabled:opacity-60",
         variantClasses[variant],

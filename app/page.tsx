@@ -1,19 +1,15 @@
-import Button from "@/Components/UI/Button";
+import Navbar from "@/Components/UI/Navbar";
 import { isAuthenticated } from "@/utils/isAuthenticated";
-import { handleLogout } from "@/utils/session";
 import { redirect } from "next/navigation";
 
 export default async function Home() {
   const isAllowed = await isAuthenticated();
   if (!isAllowed) redirect("/signin");
 
-
   return (
-    <>
+    <div className="h-screen">
+      <Navbar />
       Home
-      <form action={handleLogout}>
-        <Button type="submit">Logout</Button>
-      </form>
-    </>
+    </div>
   );
 }
