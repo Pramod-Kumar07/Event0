@@ -1,4 +1,5 @@
 import Navbar from "@/Components/UI/Navbar";
+import AddVenu from "@/Components/Venu/AddVenu";
 import { isAuthenticated } from "@/utils/isAuthenticated";
 import { redirect } from "next/navigation";
 
@@ -10,6 +11,7 @@ export default async function Home() {
     <div className="h-screen">
       <Navbar />
       Home
+      <AddVenu />
     </div>
   );
 }
