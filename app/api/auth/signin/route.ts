@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/db";
-import UserModel, { User } from "@/lib/models/user";
+import UserModel from "@/lib/models/user";
 import { cookies } from "next/headers";
 import { passwordCheck } from "@/utils/utils";
 

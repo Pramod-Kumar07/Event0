@@ -12,7 +12,7 @@ export default function Page() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitted },
+    formState: { errors },
     reset
   } = useForm<SignInSchema>({
     defaultValues: {
@@ -81,6 +81,13 @@ export default function Page() {
         <Button type="submit" fullWidth>
           Sign in
         </Button>
+
+        <Link
+          href="/forgot-password"
+          className="block text-center text-sm text-blue-600 hover:underline"
+        >
+          Forgot password?
+        </Link>
       </form>
     </main>
   );

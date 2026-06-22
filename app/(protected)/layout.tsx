@@ -1,4 +1,3 @@
-import { getSessionData } from "@/utils/session";
 import { isAuthenticated } from "@/utils/isAuthenticated";
 import { redirect } from "next/navigation";
 import React from "react";
